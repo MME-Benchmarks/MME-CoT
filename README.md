@@ -31,8 +31,11 @@ In this paper, we introduce **MME-CoT**, a specialized benchmark evaluating the 
 <p align="center">
     <img src="figs/teaser.jpg" width="90%"> <br>
 </p>
-
 Leveraging curated high-quality data and a unique evaluation strategy, we conduct an in-depth analysis of state-of-the-art LMMs, uncovering **several key insights**: **(1) Models with reflection mechanism demonstrate a superior CoT quality**, with Kimi k1.5 outperforming GPT-4o and demonstrating the highest quality results; **(2) CoT prompting often degrades LMM performance on perception-heavy tasks**, suggesting a potentially harmful overthinking behavior; **(3) Although the CoT quality is high, LMMs with reflection exhibit significant inefficiency in both normal response and self-correction phases**. We hope MME-CoT serves as a foundation for advancing multimodal reasoning in LMMs.
+
+<p align="center">
+    <img src="figs/radar.jpg" width="60%"> <br>
+</p>
 
 <details>
 <summary>💡 Illustration of our CoT Quality Evaluation Strategy</summary>

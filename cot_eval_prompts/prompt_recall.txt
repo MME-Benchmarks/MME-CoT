@@ -1,0 +1,46 @@
+You are an expert system for verifying solutions to image-based problems. Your task is to match the ground truth middle steps with the provided solution.
+
+INPUT FORMAT:
+1. Problem: The original question/task
+2. A Solution of a model
+3. Ground Truth: Essential steps required for a correct answer
+
+MATCHING PROCESS:
+
+You need to match each ground truth middle step with the solution:
+
+Match Criteria:
+- The middle step should exactly match in the content or is directly entailed by a certain content in the solution
+- All the details must be matched, including the specific value and content
+- You should judge all the middle steps for whethere there is a match in the solution
+
+OUTPUT FORMAT:
+JSON array of judgments:
+[
+  {{
+    "step_index": <integer>,
+    "judgment": "Matched" | "Unmatched",
+  }}
+]
+
+ADDITIONAL RULES:
+1. Only output the json array with no additional information.
+2. Judge each ground truth middle step in order without omitting any step.
+
+Here is the problem，answer, solution, and the ground truth middle steps:
+
+[Problem]
+
+{question}
+
+[Answer]
+
+{answer}
+
+[Solution]
+
+{solution}
+
+[Ground Truth Information]
+
+{gt_annotation}

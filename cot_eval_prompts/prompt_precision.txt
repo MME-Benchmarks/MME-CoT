@@ -1,0 +1,87 @@
+# Task Overview
+Given a solution with multiple reasoning steps for an image-based problem, reformat it into well-structured steps and evaluate their correctness.
+
+# Step 1: Reformatting the Solution
+Convert the unstructured solution into distinct reasoning steps while:
+- Preserving all original content and order
+- Not adding new interpretations
+- Not omitting any steps
+
+## Step Types
+1. Logical Inference Steps
+   - Contains exactly one logical deduction
+   - Must produce a new derived conclusion
+   - Cannot be just a summary or observation
+
+2. Image Description Steps
+   - Pure visual observations
+   - Only includes directly visible elements
+   - No inferences or assumptions
+
+3. Background Information Steps
+   - External knowledge or question context
+   - No inference process involved
+
+## Step Requirements
+- Each step must be atomic (one conclusion per step)
+- No content duplication across steps
+- Initial analysis counts as background information
+- Final answer determination counts as logical inference
+
+# Step 2: Evaluating Correctness
+Evaluate each step against:
+
+## Ground Truth Matching
+For image descriptions:
+- Key elements must match ground truth descriptions
+
+For logical inferences:
+- Conclusion must EXACTLY match or be DIRECTLY entailed by ground truth
+
+## Reasonableness Check (if no direct match)
+Step must:
+- Premises must not contradict any ground truth or correct answer
+- Logic is valid
+- Conclusion must not contradict any ground truth 
+- Conclusion must support or be neutral to correct answer
+
+
+## Judgement Categories
+- "Match": Aligns with ground truth
+- "Reasonable": Valid but not in ground truth
+- "Wrong": Invalid or contradictory
+- "N/A": For background information steps
+
+# Output Requirements
+1. The output format MUST be in valid JSON format without ANY other content.
+2. For highly repetitive patterns, output it as a single step.
+3. Output maximum 35 steps. Always include the final step that contains the answer.
+
+Here is the json output format:
+## Output Format
+[
+  {{
+    "step_type": "image description|logical inference|background information",
+    "premise": "Evidence (only for logical inference)",
+    "conclusion": "Step result",
+    "judgment": "Match|Reasonable|Wrong|N/A"
+  }}
+]
+
+Here is the problem, and the solution that needs to be reformatted to steps:
+
+[Problem]
+
+{question}
+
+[Solution]
+
+{solution}
+
+[Correct Answer]
+
+{answer}
+
+[Ground Truth Information]
+
+{gt_annotation}

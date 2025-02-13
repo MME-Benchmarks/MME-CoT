@@ -1,0 +1,60 @@
+Here's a refined prompt that improves clarity and structure:
+
+# Task
+Evaluate reflection steps in image-based problem solutions, where reflections are self-corrections or reconsiderations of previous statements.
+
+# Reflection Step Identification 
+Reflections typically begin with phrases like:
+- "But xxx"
+- "Alternatively, xxx" 
+- "Maybe I should"
+- "Let me double-check"
+- "Wait xxx"
+- "Perhaps xxx"
+It will throw an doubt of its previously reached conclusion or raise a new thought.
+
+# Evaluation Criteria
+Correct reflections must:
+1. Reach accurate conclusions aligned with ground truth
+2. Use new insights to find the mistake of the previous conclusion or verify its correctness. 
+
+Invalid reflections include:
+1. Repetition - Restating previous content or method without new insights
+2. Wrong Conclusion - Reaching incorrect conclusions vs ground truth
+3. Incompleteness - Proposing but not executing new analysis methods
+4. Other - Additional error types
+
+# Input Format
+```
+[Problem]
+{question}
+
+[Solution]
+{solution}
+
+[Ground Truth]
+{gt_annotation}
+```
+
+# Output Requirements
+1. The output format must be in valid JSON format without any other content.
+2. Output maximum 30 reflection steps.
+
+Here is the json output format:
+## Output Format
+```json
+[
+  {{
+    "conclusion": "One-sentence summary of reflection outcome",
+    "judgment": "Correct|Wrong",
+    "error_type": "N/A|Repetition|Wrong Conclusion|Incompleteness|Other"
+  }}
+]
+```
+
+# Rules
+1. Preserve original content and order
+2. No new interpretations
+3. Include ALL reflection steps
+4. Empty list if no reflections found
+5. Direct JSON output without any other output

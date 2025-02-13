@@ -1,0 +1,74 @@
+# Task Overview
+Given a solution with multiple reasoning steps for an image-based problem, evaluate the relevance to get a solution (ignore correct or wrong) of each step.
+
+# Step 1: Reformatting the Solution
+Convert the unstructured solution into distinct reasoning steps while:
+- Preserving all original content and order
+- Not adding new interpretations
+- Not omitting any steps
+
+## Step Types
+1. Logical Inference Steps
+   - Contains exactly one logical deduction
+   - Must produce a new derived conclusion
+   - Cannot be just a summary or observation
+
+2. Image Description Steps
+   - Pure visual observations
+   - Only includes directly visible elements
+   - No inferences or assumptions
+
+3. Background Information Steps
+   - External knowledge or question context
+   - No inference process involved
+
+## Step Requirements
+- Each step must be atomic (one conclusion per step)
+- No content duplication across steps
+- Initial analysis counts as background information
+- Final answer determination counts as logical inference
+
+# Step 2: Evaluating Relevancy
+A relevant step is considered as: 75% content of the step must be related to trying to get a solution (ignore correct or wrong) to the question. 
+
+**IMPORTANT NOTE**: 
+Evaluate relevancy independent of correctness. As long as the step is trying to get to a solution, it is considered relevant. Logical fallacy, knowledge mistake, inconsistent with previous steps, or other mistakes do not affect relevance.
+A logically wrong step can be relevant if the reasoning attempts to address the question.
+
+The following behaviour is considered as relevant:
+i. The step is planning, summarizing, thinking, verifying, calculating, or confirming an intermediate/final conclusion helpful to get a solution.
+ii. The step is summarizing or reflecting on previously reached conclusion relevant to get a solution.
+iii. Repeating the information in the question or give the final answer.
+iv. A relevant image depiction shoule be in one of following situation: 1. help to obtain a conclusion helpful to solve the question later; 2. help to identify certain patterns in the image later; 3. directly contributes to the answer
+v. Depicting or analyzing the options of the question is also relevant.
+vi. Repeating previous relevant steps are also considered relevant. 
+
+The following behaviour is considered as irrelevant: 
+i. Depicting image information that does not related to what is asking in the question.  Example: The question asks how many cars are present in all the images. If the step focuses on other visual elements like the road or building, the step is considered as irrelevant.
+ii. Self-thought not related to what the question is asking.
+iii. Other information that is tangential for answering the question.
+
+
+# Output Format
+[
+  {{
+    "step_type": "image description|logical inference|background information",
+    "conclusion": "A brief summary of step result",
+    "relevant": "Yes|No"
+  }}
+]
+
+
+# Output Rules
+Direct JSON output without any other output
+Output at most 40 steps
+
+Here is the problem, and the solution that needs to be reformatted to steps:
+
+[Problem]
+
+{question}
+
+[Solution]
+
+{solution}

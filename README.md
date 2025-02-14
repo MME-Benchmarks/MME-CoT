@@ -16,7 +16,7 @@ Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Rea
 
 
 ## 💥 News
-- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper]() and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
+- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper](https://arxiv.org/pdf/2502.09621) and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
 
 ## 📌 ToDo
 

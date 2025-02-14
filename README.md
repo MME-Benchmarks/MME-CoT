@@ -1,4 +1,4 @@
-# MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in Large Multimodal Models for Reasoning Quality, Robustness, and Efficiency
+# MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency
 
 ![Multimodal CoT](https://img.shields.io/badge/Task-Multimodal_CoT-red) 
 ![Visual Reasoning](https://img.shields.io/badge/Task-Visual_Reasoning-red) 
@@ -8,11 +8,11 @@
 ![Kimi k1.5](https://img.shields.io/badge/Model-Kimi--k1.5-green)
 ![GPT-4o](https://img.shields.io/badge/Model-GPT--4o-green) 
 
-Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in Large Multimodal Models\\for Reasoning Quality, Robustness, and Efficiency]()".
+Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency](https://arxiv.org/pdf/2502.09621)".
 
 🌟 For more details, please refer to the project page with dataset exploration and visualization tools.
 
-[[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper]()] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
+[[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
 
 ## 💥 News

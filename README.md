@@ -78,6 +78,19 @@ from datasets import load_dataset
 dataset = load_dataset("CaraJ/MME-CoT")
 ```
 
+## :white_check_mark: Citation
+
+If you find **MME-CoT** useful for your research and applications, please kindly cite using this BibTeX:
+
+```latex
+@article{jiang2025mme,
+  title={MME-CoT: Benchmarking Chain-of-Thought in Large Multimodal Models for Reasoning Quality, Robustness, and Efficiency},
+  author={Jiang, Dongzhi and Zhang, Renrui and Guo, Ziyu and Li, Yanwei and Qi, Yu and Chen, Xinyan and Wang, Liuhui and Jin, Jianhan and Guo, Claire and Yan, Shen and others},
+  journal={arXiv preprint arXiv:2502.09621},
+  year={2025}
+}
+```
+
 ## 📜 Related Work
 
 Explore our additional research on **Vision-Language Large Models**:

@@ -1,4 +1,4 @@
-# MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in Large Multimodal Models for Reasoning Quality, Robustness, and Efficiency
+# MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency
 
 ![Multimodal CoT](https://img.shields.io/badge/Task-Multimodal_CoT-red) 
 ![Visual Reasoning](https://img.shields.io/badge/Task-Visual_Reasoning-red) 
@@ -8,16 +8,14 @@
 ![Kimi k1.5](https://img.shields.io/badge/Model-Kimi--k1.5-green)
 ![GPT-4o](https://img.shields.io/badge/Model-GPT--4o-green) 
 
-Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in Large Multimodal Models\\for Reasoning Quality, Robustness, and Efficiency]()".
+Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency](https://arxiv.org/pdf/2502.09621)".
 
 🌟 For more details, please refer to the project page with dataset exploration and visualization tools.
 
 [[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
-
 ## 💥 News
-- **[2025.02.21]** 🔥 We release the evaluation script of [MME-CoT](https://github.com/CaraJ7/MMSearch#-evaluation).
-- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper](https://arxiv.org/abs/2502.09621) and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
+- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper]() and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
 
 ## 📌 ToDo
 
@@ -32,6 +30,7 @@ In this paper, we introduce **MME-CoT**, a specialized benchmark evaluating the 
 <p align="center">
     <img src="figs/teaser.jpg" width="90%"> <br>
 </p>
+
 Leveraging curated high-quality data and a unique evaluation strategy, we conduct an in-depth analysis of state-of-the-art LMMs, uncovering **several key insights**: **(1) Models with reflection mechanism demonstrate a superior CoT quality**, with Kimi k1.5 outperforming GPT-4o and demonstrating the highest quality results; **(2) CoT prompting often degrades LMM performance on perception-heavy tasks**, suggesting a potentially harmful overthinking behavior; **(3) Although the CoT quality is high, LMMs with reflection exhibit significant inefficiency in both normal response and self-correction phases**. We hope MME-CoT serves as a foundation for advancing multimodal reasoning in LMMs.
 
 <p align="center">
@@ -113,6 +112,19 @@ You can download the dataset from the [🤗 Huggingface](https://huggingface.co/
 from datasets import load_dataset
 
 dataset = load_dataset("CaraJ/MME-CoT")
+```
+
+## :white_check_mark: Citation
+
+If you find **MME-CoT** useful for your research and applications, please kindly cite using this BibTeX:
+
+```latex
+@article{jiang2025mme,
+  title={MME-CoT: Benchmarking Chain-of-Thought in Large Multimodal Models for Reasoning Quality, Robustness, and Efficiency},
+  author={Jiang, Dongzhi and Zhang, Renrui and Guo, Ziyu and Li, Yanwei and Qi, Yu and Chen, Xinyan and Wang, Liuhui and Jin, Jianhan and Guo, Claire and Yan, Shen and others},
+  journal={arXiv preprint arXiv:2502.09621},
+  year={2025}
+}
 ```
 
 ## 📜 Related Work

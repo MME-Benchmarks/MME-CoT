@@ -1,0 +1,100 @@
+You are an AI assistant who will help me to extract an answer of a question. You are provided with a question and a response, and you need to find the final answer of the question. 
+
+Extract Rule:
+[Multiple choice question]
+1. The answer could be answering the option letter or the value. You should directly output the choice letter of the answer. 
+2. You should output a single uppercase character in A, B, C, D, E, F, G, H, I (if they are valid options), and Z.
+3. If the meaning of all options are significantly different from the final answer, output Z. 
+[Non Multiple choice question]
+1. Output the final value of the answer. It could be hidden inside the last step of calculation or inference. Pay attention to what the question is asking for to extract the value of the answer.
+2. The final answer could also be a short phrase or sentence.
+3. If the response doesn't give a final answer, output Z.
+
+Output Format: 
+Directly output the extracted answer of the response 
+
+Example 1:
+Question: What is the main object in image?\nOptions: A. teddy bear B. rabbit C. cat D. dog
+Response: a cute teddy bear
+Your output: A
+Example 2: 
+Question: What is the main object in image?\nOptions: A. teddy bear B. rabbit C. cat D. dog
+Answer: Spider
+Your output: Z
+Example 3:
+Question: On a flat playground, choose a Cartesian Oxy coordinate system (in unit of meters). A child running at a constant velocity $V=1 \\mathrm{~m} / \\mathrm{s}$ around a heart-shaped path satisfies the following order- 6 algebraic equation:\n$$\n\\left(x^{2}+y^{2}-L^{2}\\right)^{3}-L x^{2} y^{3}=0, L=10 \\text {. }\n$$\nWhen the child is at the position $(x, y)=(L, 0)$, what is the magnitude of their acceleration?\n\n<image>
+Response: fore, \\(r \\approx 10 \\, \\text{m}\\).\n\n7. **Calculating Acceleration**: Using the radius of curvature:\n   \\[\n   a_c = \\frac{V^2}{r} = \\frac{(1 \\, \\text{m/s})^2}{10 \\, \\text{m}} = 0.1 \\, \\text{m/s}^2\n   \\]\n\n8. **Magnitude of Acceleration**: The magnitude of the acceleration is the sum of the tangential and centripetal accelerations. Since the tangential acceleration is zero, the magnitude of the acceleration is purely centripetal:\n   \\[\n   \\text{Magnitude of acceleration} = a_c = 0.1 \\, \\text{m/s}^2\n   \\]\n\nAnswer: \\boxed{0.1 \\, \\text{m/s}^2}
+Your output: 0.1 text{m/s}^2
+Example 4:
+Question: Given the sequence of images, please identify the image consistent with the text description: CleanAndJerk.\nA. <image>\nB. <image>\nC. <image>\nD. <image>",
+Response: Based on the temporal analysis, Answer: The second image
+Your output: B
+Example 5:
+Question: Which of the following relationships could be represented by the given graph?
+Choices:
+A:The number of handshakes, y, made by x people in a room if every person shakes hands with every other person.
+B:The number of layers, y, resulting from a rectangular piece of paper being folded in half x times.
+C:The number of people, y, attending a parent/teacher conference when there are x parents who each bring 2 children.
+Response: A: The number of handshakes, y, made by x people in a room if every person shakes hands with every other person.
+Your output: A
+Example 6:
+Question: In the diagram, $O A=15, O P=9$ and $P B=4$. Determine the equation of the line through $A$ and $B$. Explain how you got your answer.
+
+<image>
+Response: The equation of the line through $A$ and $B$ is $y = -\frac{1}{3}x + 12$. 
+
+To find the equation of the line through $A$ and $B$, we first need to find the slope of the line. The slope of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is given by the formula:
+
+$$\text{Slope} = \frac{y_2 - y_1}{x_2 - x_1}$$
+
+Using the coordinates of points $A(0, 15)$ and $B(4, 0)$, we can calculate the slope as follows:
+
+$$\text{Slope} = \frac{0 - 15}{4 - 0} = \frac{-15}{4} = -\frac{15}{4}$$
+
+Now that we have the slope, we can use the point-slope form of a linear equation to find the equation of the line. The point-slope form is given by:
+
+$$y - y_1 = m(x - x_1)$$
+
+where $(x_1, y_1)$ is a point on the line and $m$ is the slope. In this case, we can use point $A(0, 15)$ and the slope $-\frac{15}{4}$:
+
+$$y - 15 = -\frac{15}{4}(x - 0)$$
+
+Simplifying the equation, we get:
+
+$$y - 15 = -\frac{15}{4}x$$
+
+$$y = -\frac{15}{4}x + 15$$
+
+Therefore, the equation of the line through $A$ and $B$ is $y = -\frac{15}{4}x + 15$.
+Your output: $y = -\frac{15}{4}x + 15$
+Example 7:
+Question: <image>How many more distinct peaks are present in the second image of the first row compared to the third image of the first row
+Response: To determine how many more distinct peaks are present in the second image of the first row compared to the third image of the first row, let's analyze the images step by step:
+
+1. **Second Image of the First Row:**
+   - This image shows a single distinct peak located at the center.
+
+2. **Third Image of the First Row:**
+   - This image shows two distinct peaks, one at the center and another slightly off-center.
+
+Now, let's count the number of distinct peaks in each image:
+
+- Second image: 1 distinct peak
+- Third image: 2 distinct peaks
+
+To find the difference in the number of distinct peaks:
+
+\[ \text{Difference} = \text{Number of peaks in the third image} - \text{Number of peaks in the second image} \]
+\[ \text{Difference} = 2 - 1 \]
+\[ \text{Difference} = 1 \]
+
+Therefore, there is 1 more distinct peak in the second image of the first row compared to the third image of the first row.
+Your output: 1
+Example 8:
+Question: <image> <image> <image> <image> <image> <image> <image> <image> <image>In the paper \'An Object is Worth 64x64 Pixels: Generating 3D Object via Image Diffusion\', what aspect of the proposed method does this figure aim to demonstrate?
+Response: the potential of this 3D generation paradigm to generate objects with PBR materials
+Your output: the potential of this 3D generation paradigm to generate objects with PBR materials
+
+Question: {question}
+Answer: {response}
+Your output: 

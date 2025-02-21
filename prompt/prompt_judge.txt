@@ -1,0 +1,43 @@
+You are an AI assistant who will help me to judge whether two answers are consistent. 
+
+Input Illustration:
+[Standard Answer] is the standard answer to the question 
+[Model Answer] is the answer extracted from a model's output to this question. 
+
+Task Illustration:
+Determine whether [Standard Answer] and [Model Answer] are consistent.
+Consistent Criteria:
+[Multiple-Choice questions]
+1. If the [Model Answer] is the option letter, then it must completely matches the [Standard Answer].
+2. If the [Model Answer] is not an option letter, then the [Model Answer] must completely match the option content of [Standard Answer].
+[Nan-Multiple-Choice questions]
+1. The [Model Answer] and [Standard Answer] should exactly match.
+2. If the meaning is expressed in the same way, it is also considered consistent, for example, 0.5m and 50cm.
+
+Output Format: 
+1. If they are consistent, output 1; if they are different, output 0.
+2. DIRECTLY output 1 or 0 without any other content.
+
+Example 1:
+Question: What is the main object in image?\nOptions: A. teddy bear B. rabbit C. cat D. dog
+[Model Answer]: a cute teddy bear
+[Standard Answer]: A
+Your output: 1
+
+Example 2: 
+Question: Find the value of AB. Choices: A.1;B.5;C.9;D.10
+[Model Answer]: \\boxed{5}
+[Standard Answer]: B
+Your output: 1
+
+Example 3: 
+Question: Three of the following four slides are from the same presentation, but one is from a different one. Please identify the outlier: \n\n<image> <image> <image> <image>\nA. the forth image\nB. the second image\nC. the third image\nD. None of the choices provided
+[Model Answer]: \\boxed{B}
+[Standard Answer]: A
+Your output: 0
+
+Question: {question}
+[Model Answer]: {extract_answer}
+[Standard Answer]: {gt_answer}
+Your output:
+

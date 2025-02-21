@@ -12,15 +12,16 @@ Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in Large Multim
 
 🌟 For more details, please refer to the project page with dataset exploration and visualization tools.
 
-[[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper]()] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
+[[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
 
 ## 💥 News
-- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper]() and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
+- **[2025.02.21]** 🔥 We release the evaluation script of [MME-CoT](https://github.com/CaraJ7/MMSearch#-evaluation).
+- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper](https://arxiv.org/abs/2502.09621) and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
 
 ## 📌 ToDo
 
-- Coming soon:  Evaluation Script
+- Coming this week: MME-CoT evaluation with VLMEvalKit
 
 ## 👀 About MME-CoT
 
@@ -56,6 +57,43 @@ Leveraging curated high-quality data and a unique evaluation strategy, we conduc
 </p>
 </details>
 
+## 📈 Eval
+To calculate the six metrics (precision, recall, efficacy, stability, relevance rate, reflection quality), please follow the following steps:
+1. Install the required packages.
+```bash
+pip install -r requirements.txt
+```
+2. Format the model answer as the example shown in `results/json`.
+  The file should be in a jsonl format, with each answer to a question in one line. All the other information of the question in the dataset should be preserved in the line.
+  The suffix `_cot.json` denotes answering with the CoT prompt, and `_dir.json` denotes answering with the direct prompt.
+3. Run the evaluation script.
+
+     You can either run the metric one by one. For example, to evaluate recall:
+  ```
+  bash scripts/recall.sh
+  ```
+Or you can run all the metrics for all the models in one directory with:
+  ```
+  bash batch_scripts/run_all.py --result_dir results/json
+  ```
+4. Calculate the metrics.
+  We cache the evaluation results of all the questions in the cache dir. Here we read the results from the cache dir and calculate the metrics. 
+
+  For example, to calculate recall:
+```
+python final_score/recall.py --cache_dir cache/recall --save_path final_results
+```
+### Notes
+1. The structure of the `scripts` directory:
+```
+- scripts
+- - recall.sh # evaluate recall
+- - precision.sh # evaluate precision
+- - reflection_quality.sh # evaluate reflection quality
+- - relevance_rate.sh # evaluate relevance rate
+- - extract.sh # Step1 of direct evaluation (for robustness): extract the final answer from the model answer
+- - judge.sh # Step2 of direct evaluation (for robustness): judge the correctness of the extracted answer
+```
 
 ## 🏆 Leaderboard
 

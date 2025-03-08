@@ -60,7 +60,9 @@ Leveraging curated high-quality data and a unique evaluation strategy, we conduc
 ## Inference
 We support running inference on MME-CoT with [VLMEvalkit](https://github.com/open-compass/VLMEvalKit). And then run the evaluation of each metric detailed in the [Eval](https://github.com/CaraJ7/MME-CoT#evaluation) section.
 
-Run the inference with the CoT prompt (needed for: Precision, Recall, Stability, Efficacy, Reflection Quality, and Relevance Rate):
+Please first install VLMEvalKit as demonstrated in its official GitHub repo [here](https://github.com/open-compass/VLMEvalKit/blob/main/docs/en/Quickstart.md).
+
+Then, run the inference with the CoT prompt (needed for: Precision, Recall, Stability, Efficacy, Reflection Quality, and Relevance Rate):
 ```
 USE_COT_PROMPT=1 \
 python run.py \
@@ -78,9 +80,9 @@ python run.py \
 --verbose \
 --work-dir direct_results
 ```
-Then, rename the result file `MODELNAME_MME_CoT_TEST.xlsx` to either `MODELNAME_MME_CoT_TEST_cot.xlsx` or `MODELNAME_MME_CoT_TEST_dir.xlsx`, depending on the prompt used. 
+Rename the result file `MODELNAME_MME_CoT_TEST.xlsx` to either `MODELNAME_MME_CoT_TEST_cot.xlsx` or `MODELNAME_MME_CoT_TEST_dir.xlsx`, depending on the prompt used. 
 
-Then, run the evaluation illustrated below.
+Finally, run the evaluation illustrated below.
 
 
 ## Evaluation

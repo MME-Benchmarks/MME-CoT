@@ -15,11 +15,12 @@ Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Rea
 [[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
 ## 💥 News
+- **[2025.03.08]** ⚙️ We have just integrated MME-CoT into [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
 - **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper]() and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
 
 ## 📌 ToDo
 
-- Coming this week: MME-CoT evaluation with VLMEvalKit
+- Coming soon: MME-CoT evaluation with lmms-eval
 
 ## 👀 About MME-CoT
 
@@ -56,20 +57,44 @@ Leveraging curated high-quality data and a unique evaluation strategy, we conduc
 </p>
 </details>
 
-## 📈 Eval
+## Inference
+We support running inference on MME-CoT with [VLMEvalkit](https://github.com/open-compass/VLMEvalKit). And then run the evaluation of each metric detailed in the [Eval](https://github.com/CaraJ7/MME-CoT#evaluation) section.
+
+Run the inference with the CoT prompt (needed for: Precision, Recall, Stability, Efficacy, Reflection Quality, and Relevance Rate):
+```
+USE_COT_PROMPT=1 \
+python run.py \
+--data MME_CoT_TEST \
+--model TESTED_MODEL \
+--verbose \
+--work-dir cot_results
+```
+Run the inference with the Direct prompt (needed for: Stability and Efficacy):
+```
+USE_COT_PROMPT=0 \
+python run.py \
+--data MME_CoT_TEST \
+--model TESTED_MODEL \
+--verbose \
+--work-dir direct_results
+```
+Then, rename the result file `MODELNAME_MME_CoT_TEST.xlsx` to either `MODELNAME_MME_CoT_TEST_cot.xlsx` or `MODELNAME_MME_CoT_TEST_dir.xlsx`, depending on the prompt used. Run the evaluation illustrated below.
+
+
+## Evaluation
 To calculate the six metrics (precision, recall, efficacy, stability, relevance rate, reflection quality), please follow the following steps:
 1. Install the required packages.
 ```bash
 pip install -r requirements.txt
 ```
-2. Format the model answer as the example shown in `results/json`.
+2. Format the model answer as the example shown in `results/xlsx` (the output from VLMEvalKit)
 
-     The file should be in a jsonl format, with each answer to a question in one line. All the other information of the question in the dataset should be preserved in the line.
+     The file format is identical to the output format of VLMEvalKit, which is in the .xlsx format.
 
      The suffix `_cot.json` denotes answering with the CoT prompt, and `_dir.json` denotes answering with the direct prompt.
 3. Run the evaluation script.
 
-     You can either run the metric one by one. For example, to evaluate recall:
+     You can either run the metrics one by one. For example, to evaluate recall:
      ```
      bash scripts/recall.sh
      ```

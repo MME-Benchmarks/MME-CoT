@@ -61,6 +61,7 @@ def save_output(results, dataset_name, file_name='output.json'):
 def read_results(data_path):
     if data_path.endswith('.xlsx'):
         results = pd.read_excel(data_path)
+        results = results.to_dict(orient='records')
     elif data_path.endswith('.json') or data_path.endswith('.jsonl'):
         results = []
         with open(data_path, 'r') as f:

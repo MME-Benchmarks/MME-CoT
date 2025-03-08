@@ -4,6 +4,7 @@ from tqdm import tqdm
 import string
 from datasets import load_dataset
 from direct_eval import extract_answer_from_item
+from file_utils import read_results
 
 def make_gt_dict(gt_dataset):
     gt_dict = dict()
@@ -90,10 +91,7 @@ def get_dataset_by_path(name, dataset_args):
     gt_dataset_dict = make_gt_dict(gt_dataset)
 
     # load all the result and its index
-    results = []
-    with open(dataset_args["data_path"], 'r') as f:
-        for line in f:
-            results.append(json.loads(line))
+    results = read_results(dataset_args["data_path"]) # read either from xlsx or json
     
     # filter what have already collected in cache
     cached_index = []

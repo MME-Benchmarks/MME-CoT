@@ -59,9 +59,9 @@ Leveraging curated high-quality data and a unique evaluation strategy, we conduc
 ## 📈 Eval
 To calculate the six metrics (precision, recall, efficacy, stability, relevance rate, reflection quality), please follow the following steps:
 1. Install the required packages.
-```bash
-pip install -r requirements.txt
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 2. Format the model answer as the example shown in `results/json`.
 
      The file should be in a jsonl format, with each answer to a question in one line. All the other information of the question in the dataset should be preserved in the line.

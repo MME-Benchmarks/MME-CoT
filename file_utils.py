@@ -8,6 +8,7 @@ import time
 
 import openai
 from openai import OpenAI
+import pandas as pd
 
 
 system_messages = "You are an AI assistant that helps people solve their questions."
@@ -56,3 +57,15 @@ def save_output(results, dataset_name, file_name='output.json'):
     output_folder = os.path.join('./output', dataset_name)
     os.makedirs(output_folder, exist_ok=True)
     json.dump(results, open(os.path.join(output_folder, file_name), 'w'))
+
+def read_results(data_path):
+    if data_path.endswith('.xlsx'):
+        results = pd.read_excel(data_path)
+    elif data_path.endswith('.json') or data_path.endswith('.jsonl'):
+        results = []
+        with open(data_path, 'r') as f:
+            for line in f:
+                results.append(json.loads(line))
+    else:
+        raise ValueError(f"Unsupported file type: {data_path}")
+    return results

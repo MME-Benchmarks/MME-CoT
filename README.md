@@ -112,7 +112,7 @@ pip install -r requirements.txt
      ```
 
      After GPT evaluation, you are expected to obtain a `cache/` directory like this:
-
+    ```
       📂 cache
        ┣━━ 📂 recall
        ┃    ┗━━ 📂 YOUR_MODEL_NAME
@@ -131,7 +131,7 @@ pip install -r requirements.txt
        ┗━━ 📂 judge
             ┣━━ 📂 YOUR_MODEL_NAME_dir
             ┗━━ 📂 YOUR_MODEL_NAME_cot
-        
+    ```
     Note that, if your model does not contain reflection process, you do not need to run `reflection_quality.sh`. The metric calculation script below will handle that automatically.
 4. Calculate the metrics.
 
@@ -155,6 +155,7 @@ pip install -r requirements.txt
 ### Notes
 
 1. The structure of the `scripts` directory:
+   ```
     📂 scripts
      ┣━━ 📜 recall.sh           # 评估召回率
      ┣━━ 📜 precision.sh        # 评估精确度
@@ -162,7 +163,7 @@ pip install -r requirements.txt
      ┣━━ 📜 relevance_rate.sh   # 评估相关性比率
      ┣━━ 📜 extract.sh          # 直接评估第一步（为了稳健性）：从模型回答中提取最终答案
      ┗━━ 📜 judge.sh            # 直接评估第二步（为了稳健性）：判断提取答案的正确性
-
+   ```
 ## 🏆 Leaderboard
 
 ### Contributing to the Leaderboard

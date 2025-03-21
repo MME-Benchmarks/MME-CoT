@@ -15,7 +15,7 @@ category_dict = {item['index']: (item['category'], item['subcategory']) for item
 def parse_args():
     parser = argparse.ArgumentParser(description='calculate recall')
     parser.add_argument('--cache_dir', type=str, 
-                       default='s',
+                       default='./cache/recall',
                        help='cache directory')
     parser.add_argument('--save_path', type=str,
                        default='./final_results',

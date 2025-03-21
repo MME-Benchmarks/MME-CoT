@@ -1,0 +1,32 @@
+{
+    "overall_metrics": {
+        "average_reflection_quality": 1
+    },
+    "category": {
+        "Science": 1,
+        "Math": 1,
+        "Logic": 1,
+        "OCR": 1,
+        "Spatial-Temporal": 1,
+        "General Reasoning": 1
+    },
+    "subcategory": {
+        "Chemistry": 1,
+        "Application": 1,
+        "Attribution": 1,
+        "Doc": 1,
+        "Diagram": 1,
+        "Temporal": 1,
+        "Physics": 1,
+        "Plane Geometry": 1,
+        "Transformation": 1,
+        "Biology": 1,
+        "Algebra": 1,
+        "Coordinate": 1,
+        "Solid Geometry": 1,
+        "Spatial": 1,
+        "Commonsense": 1,
+        "Details": 1,
+        "search": 1
+    }
+}

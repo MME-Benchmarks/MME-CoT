@@ -13,25 +13,25 @@ for f in os.listdir(result_dir):
     print(f"Evaluating {f}")
     data_path = f
     # recall
-    cache_path = f"cache/recall/cache_{f.split('.json')[0]}"
+    cache_path = f"cache/recall/{f.split('.json')[0]}"
     command = f"bash batch_scripts/recall.sh {data_path} {cache_path}"
     print(f"Evaluating recall: {command}")
     os.system(command)
     # precision
     task = 'precision'
-    cache_path = f"cache/{task}/cache_{f.split('.json')[0]}"
+    cache_path = f"cache/{task}/{f.split('.json')[0]}"
     command = f"bash batch_scripts/{task}.sh {data_path} {cache_path}"
     print(f"Evaluating precision: {command}")
     os.system(command)
     # reflection quality
     task = 'reflection_quality'
-    cache_path = f"cache/{task}/cache_{f.split('.json')[0]}"
+    cache_path = f"cache/{task}/{f.split('.json')[0]}"
     command = f"bash batch_scripts/{task}.sh {data_path} {cache_path}"
     print(f"Evaluating reflection quality: {command}")
     os.system(command)
     # relevance rate
     task = 'relevance_rate'
-    cache_path = f"cache/{task}/cache_{f.split('.json')[0]}"
+    cache_path = f"cache/{task}/{f.split('.json')[0]}"
     command = f"bash batch_scripts/{task}.sh {data_path} {cache_path}"
     print(f"Evaluating relevance rate: {command}")
     os.system(command)
@@ -45,7 +45,7 @@ for f in os.listdir(result_dir):
         
         # extract
         task = 'extract'
-        cache_path = f"cache/{task}/cache_{eval_f.split('.json')[0]}"
+        cache_path = f"cache/{task}/{eval_f.split('.json')[0]}"
         command = f"bash batch_scripts/{task}.sh {data_path} {cache_path}"
         print(command)
         os.system(command)
@@ -56,7 +56,7 @@ for f in os.listdir(result_dir):
 
         # judge
         task = 'judge'
-        cache_path = f"cache/{task}/cache_{eval_f.split('.json')[0]}"
+        cache_path = f"cache/{task}/{eval_f.split('.json')[0]}"
         command = f"bash batch_scripts/{task}.sh {eval_f} {cache_path}"
         print(command)
         os.system(command)

@@ -1,1 +1,5 @@
 __pycache__
+final_results/
+cache/
+results/raw_json/
+extract_json/

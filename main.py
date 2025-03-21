@@ -21,7 +21,7 @@ parser.add_argument("--name", type=str, required=True, help="Path to the dataset
 parser.add_argument("--num_threads", type=int, default=8, help="Number of threads.")
 parser.add_argument("--prompt_path", help="Path to the prompt file.")
 parser.add_argument("--data_path", help="Path to the query input file.")
-parser.add_argument("--eval_model", type=str, default='gpt-4o-2024-08-06')
+parser.add_argument("--model", type=str, default='gpt-4o-2024-08-06')
 parser.add_argument("--max_tokens", type=int, default=4096)
 parser.add_argument("--cache_dir", type=str, default='cache')
 

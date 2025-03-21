@@ -103,29 +103,65 @@ pip install -r requirements.txt
      ```
      bash scripts/recall.sh
      ```
+     Simply change the `YOUR_MODEL_NAME` in the `recall.sh` file.
+
      Or you can run all the metrics for all the models in one directory with:
+
      ```
-     bash batch_scripts/run_all.py --result_dir results/json
+     bash batch_scripts/run_all.py --result_dir results/xlsx
      ```
+
+     After GPT evaluation, you are expected to obtain a `cache/` directory like this:
+
+      📂 cache
+       ┣━━ 📂 recall
+       ┃    ┗━━ 📂 YOUR_MODEL_NAME
+       ┃         ┣━━ 📄 1.json
+       ┃         ┣━━ 📄 2.json
+       ┃         ┗━━ 📄 ...
+       ┣━━ 📂 precision
+       ┃    ┗━━ 📂 YOUR_MODEL_NAME
+       ┣━━ 📂 relevance_rate
+       ┃    ┗━━ 📂 YOUR_MODEL_NAME
+       ┣━━ 📂 reflection_quality
+       ┃    ┗━━ 📂 YOUR_MODEL_NAME
+       ┣━━ 📂 extract
+       ┃    ┣━━ 📂 YOUR_MODEL_NAME_dir
+       ┃    ┗━━ 📂 YOUR_MODEL_NAME_cot
+       ┗━━ 📂 judge
+            ┣━━ 📂 YOUR_MODEL_NAME_dir
+            ┗━━ 📂 YOUR_MODEL_NAME_cot
+        
+    Note that, if your model does not contain reflection process, you do not need to run `reflection_quality.sh`. The metric calculation script below will handle that automatically.
 4. Calculate the metrics.
 
      We cache the evaluation results of all the questions in the cache dir. Here we read the results from the cache dir and calculate the metrics. 
 
-     For example, to calculate recall:
+     For example, to calculate quality:
+     
+     ```bash
+     python final_score/quality.py --cache_dir cache --save_path final_results
      ```
+     
+     The script will automatically calculate recall and precision, then calculate the f1 score or average score.
+     
+     Or, you can calculate each metric one by one. For example, to calculate recall:
+     
+     ```bash
      python final_score/recall.py --cache_dir cache/recall --save_path final_results
      ```
+     
+     
 ### Notes
+
 1. The structure of the `scripts` directory:
-    ```
-    - scripts
-    - - recall.sh # evaluate recall
-    - - precision.sh # evaluate precision
-    - - reflection_quality.sh # evaluate reflection quality
-    - - relevance_rate.sh # evaluate relevance rate
-    - - extract.sh # Step1 of direct evaluation (for robustness): extract the final answer from the model answer
-    - - judge.sh # Step2 of direct evaluation (for robustness): judge the correctness of the extracted answer
-    ```
+    📂 scripts
+     ┣━━ 📜 recall.sh           # 评估召回率
+     ┣━━ 📜 precision.sh        # 评估精确度
+     ┣━━ 📜 reflection_quality.sh  # 评估反思质量
+     ┣━━ 📜 relevance_rate.sh   # 评估相关性比率
+     ┣━━ 📜 extract.sh          # 直接评估第一步（为了稳健性）：从模型回答中提取最终答案
+     ┗━━ 📜 judge.sh            # 直接评估第二步（为了稳健性）：判断提取答案的正确性
 
 ## 🏆 Leaderboard
 

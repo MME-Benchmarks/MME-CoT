@@ -55,7 +55,7 @@ def can_infer(answer, choices):
 
 def extract_answer_from_item(c, cot_gt_item):
     try:
-        response = c['prediction']
+        response = str(c['prediction'])
         assert response != None
     except Exception as e:
         print(f"No prediction: {c}")

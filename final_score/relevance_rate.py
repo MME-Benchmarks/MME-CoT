@@ -73,7 +73,7 @@ def calculate_relevance(data_list, step_type=None):
     except Exception:
         return None
 
-def analyze_relevance(json_file_path):
+def analyze_relevance_rate(json_file_path):
     """
     Analyze relevancy metrics for a single json file.
     Returns metrics with type and category information.
@@ -95,7 +95,7 @@ def analyze_relevance(json_file_path):
             raise ValueError('Empty steps_data')
             
         # Calculate metrics by type
-        target_types = ['logical inference', 'image caption']
+        target_types = ['logical inference', 'image description']
         filtered_data = [item for item in steps_data if item['step_type'] in target_types]
         overall_relevance = calculate_relevance(filtered_data)
         
@@ -105,7 +105,7 @@ def analyze_relevance(json_file_path):
             type_metrics[step_type] = {'score': rel}
 
         # Update file with metrics
-        data['relevance'] = {
+        data['relevance_rate'] = {
             'overall': {'score': overall_relevance},
             'by_type': type_metrics
         }
@@ -115,7 +115,7 @@ def analyze_relevance(json_file_path):
 
         return {
             'success': True,
-            'relevance': overall_relevance,
+            'relevance_rate': overall_relevance,
             'type_metrics': type_metrics,
             'category': category,
             'subcategory': subcategory
@@ -130,7 +130,7 @@ def analyze_relevance(json_file_path):
 def process_model_files(model_path):
     """Process all files in model directory and aggregate results"""
     results = {
-        'relevance_scores': [],
+        'relevance_rate_scores': [],
         'error_files': [],
         'type_metrics': defaultdict(lambda: {'scores': []}),
         'category_metrics': defaultdict(list),
@@ -142,11 +142,11 @@ def process_model_files(model_path):
             continue
             
         file_path = os.path.join(model_path, json_file)
-        result = analyze_relevance(file_path)
+        result = analyze_relevance_rate(file_path)
         
         if result.get('success'):
-            if result['relevance'] is not None:
-                results['relevance_scores'].append(result['relevance'])
+            if result['relevance_rate'] is not None:
+                results['relevance_rate_scores'].append(result['relevance_rate'])
                 
             # Collect metrics only when score is not None
             for step_type, metrics in result['type_metrics'].items():
@@ -154,10 +154,10 @@ def process_model_files(model_path):
                     results['type_metrics'][step_type]['scores'].append(metrics['score'])
                     
             # Collect category metrics only when both category and score exist
-            if result['category'] and result['relevance'] is not None:
-                results['category_metrics'][result['category']].append(result['relevance'])
-            if result['subcategory'] and result['relevance'] is not None:
-                results['subcategory_metrics'][result['subcategory']].append(result['relevance'])
+            if result['category'] and result['relevance_rate'] is not None:
+                results['category_metrics'][result['category']].append(result['relevance_rate'])
+            if result['subcategory'] and result['relevance_rate'] is not None:
+                results['subcategory_metrics'][result['subcategory']].append(result['relevance_rate'])
         else:
             results['error_files'].append({
                 'file': json_file,
@@ -173,7 +173,7 @@ def process_all_models(cache_dir, save_path):
     all_error_files = {}
     
     # Create output directory
-    save_dir = os.path.join(save_path, 'relevance')
+    save_dir = os.path.join(save_path, 'relevance_rate')
     os.makedirs(save_dir, exist_ok=True)
     
     for model in os.listdir(cache_dir):
@@ -188,10 +188,10 @@ def process_all_models(cache_dir, save_path):
             all_error_files[model] = results['error_files']
         
         # Calculate model averages with None value filtering
-        valid_scores = [score for score in results['relevance_scores'] if score is not None]
+        valid_scores = [score for score in results['relevance_rate_scores'] if score is not None]
         model_results = {
             "overall_metrics": {
-                "average_relevance": round(sum(valid_scores)/len(valid_scores), 4) if valid_scores else None
+                "average_relevance_rate": round(sum(valid_scores)/len(valid_scores), 4) if valid_scores else None
             },
             "type_metrics": {},
             "category": {},
@@ -203,11 +203,11 @@ def process_all_models(cache_dir, save_path):
             scores = [score for score in metrics['scores'] if score is not None]
             if scores:
                 model_results["type_metrics"][step_type] = {
-                    "average_relevance": round(sum(scores)/len(scores), 4)
+                    "average_relevance_rate": round(sum(scores)/len(scores), 4)
                 }
             else:
                 model_results["type_metrics"][step_type] = {
-                    "average_relevance": None
+                    "average_relevance_rate": None
                 }
                 
         # Add category metrics with None filtering
@@ -230,18 +230,18 @@ def process_all_models(cache_dir, save_path):
     
     # Rescale scores to 0-1
     for model_name in results_data:
-        results_data[model_name]['overall_metrics']['average_relevance'] = round((results_data[model_name]['overall_metrics']['average_relevance'] - 0.8) * 5, 4)
+        results_data[model_name]['overall_metrics']['average_relevance_rate'] = round((results_data[model_name]['overall_metrics']['average_relevance_rate'] - 0.8) * 5, 4)
         for step_type in results_data[model_name]['type_metrics']:
-            results_data[model_name]['type_metrics'][step_type]['average_relevance'] = round((results_data[model_name]['type_metrics'][step_type]['average_relevance'] - 0.8) * 5, 4)
+            results_data[model_name]['type_metrics'][step_type]['average_relevance_rate'] = round((results_data[model_name]['type_metrics'][step_type]['average_relevance_rate'] - 0.8) * 5, 4)
 
     # Save main results
-    output_file = os.path.join(save_dir, 'relevance_results.json')
+    output_file = os.path.join(save_dir, 'relevance_rate_results.json')
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(results_data, f, indent=4, ensure_ascii=False)
 
     # Save error file if exists
     if all_error_files:
-        error_file = os.path.join(save_dir, 'relevance_errors.json')
+        error_file = os.path.join(save_dir, 'relevance_rate_errors.json')
         with open(error_file, 'w', encoding='utf-8') as f:
             json.dump(all_error_files, f, indent=4, ensure_ascii=False)
 

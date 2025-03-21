@@ -70,7 +70,7 @@ def make_dir_prompt(name, c, prompt):
     if name == 'extract':
         prompt = prompt.replace("{", "{{").replace("}", "}}")
         question = c['question'].replace("{", "{{").replace("}", "}}")
-        prediction = c['prediction'].replace("{", "{{").replace("}", "}}")
+        prediction = str(c['prediction']).replace("{", "{{").replace("}", "}}")
         question = question.strip()
 
         prompt = prompt.format(
@@ -117,7 +117,7 @@ def get_dataset_by_path(name, dataset_args):
         # filter the codes with only cot
         filtered_results = []
         for c in results:
-            if c['question_type'] == 'cot':
+            if c['question_type'] == 'Reasoning':
                 filtered_results.append(c)
         results = filtered_results
 

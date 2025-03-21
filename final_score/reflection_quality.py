@@ -167,12 +167,19 @@ def process_all_models(cache_dir, save_path):
     all_error_files = {}
     
     # Create output directory
-    save_dir = os.path.join(save_path, 'reflection')
+    save_dir = os.path.join(save_path, 'reflection_quality')
     os.makedirs(save_dir, exist_ok=True)
+
     
     for model in os.listdir(cache_dir):
         model_path = os.path.join(cache_dir, model)
         if not os.path.isdir(model_path):
+            print(f'[Warning] {model} does not have reflection quality results. We use a dummy reflection quality score with all 100%')
+            dummy_path = './final_score/dummy_reflection_quality.json'
+            with open(dummy_path, 'r', encoding='utf-8') as f:
+                dummy_data = json.load(f)
+            results_data[model] = dummy_data
+
             continue
             
         results = process_model_files(model_path)
@@ -184,7 +191,7 @@ def process_all_models(cache_dir, save_path):
         # Calculate averages
         model_results = {
             "overall_metrics": {
-                "average_score": round(sum(results['scores'])/len(results['scores']), 4) if results['scores'] else None,
+                "average_reflection_quality": round(sum(results['scores'])/len(results['scores']), 4) if results['scores'] else None,
                 "average_repetition_ratio": round(sum(results['ratios'])/len(results['ratios']), 4) if results['ratios'] else None
             },
             "category": {},
@@ -202,13 +209,13 @@ def process_all_models(cache_dir, save_path):
         results_data[model] = model_results
 
     # Save main results
-    output_file = os.path.join(save_dir, 'reflection_results.json')
+    output_file = os.path.join(save_dir, 'reflection_quality_results.json')
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(results_data, f, indent=4, ensure_ascii=False)
 
     # Save error file if exists
     if all_error_files:
-        error_file = os.path.join(save_dir, 'reflection_errors.json')
+        error_file = os.path.join(save_dir, 'reflection_quality_errors.json')
         with open(error_file, 'w', encoding='utf-8') as f:
             json.dump(all_error_files, f, indent=4, ensure_ascii=False)
 

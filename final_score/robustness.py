@@ -71,7 +71,6 @@ def process_all_models(cache_dir, save_path):
                 print(f"Error of GPT4o-mini Judgment: {data['valid_outputs']}. Take this question as wrong.")
                 outputs = 0
 
-            data['question_type'] = 'Reasoning' if data['question_type'] == 'cot' else 'Perception'
             category_data[data['question_type']][category].append(outputs)
             subcategory_data[data['question_type']][subcategory].append(outputs)
             overall_data[data['question_type']].append(outputs)
@@ -131,16 +130,19 @@ def process_all_models(cache_dir, save_path):
         # category
         save_dict[true_model_name]['robustness']['category'] = {}
         for category in save_dict[true_model_name]['stability']['category']: 
-            save_dict[true_model_name]['robustness']['category'][category] = (save_dict[true_model_name]['efficacy']['category'][category] + save_dict[true_model_name]['stability']['category'][category])/2
+            if category in save_dict[true_model_name]['efficacy']['category'] and category in save_dict[true_model_name]['stability']['category']:
+                save_dict[true_model_name]['robustness']['category'][category] = (save_dict[true_model_name]['efficacy']['category'][category] + save_dict[true_model_name]['stability']['category'][category])/2
         # subcategory
         save_dict[true_model_name]['robustness']['subcategory'] = {}
-        for subcategory in save_dict[true_model_name]['stability']['subcategory']: 
-            save_dict[true_model_name]['robustness']['subcategory'][subcategory] = (save_dict[true_model_name]['efficacy']['subcategory'][subcategory] + save_dict[true_model_name]['stability']['subcategory'][subcategory])/2
+        for subcategory in save_dict[true_model_name]['stability']['subcategory']:
+            if subcategory in save_dict[true_model_name]['efficacy']['subcategory'] and subcategory in save_dict[true_model_name]['stability']['subcategory']:
+                save_dict[true_model_name]['robustness']['subcategory'][subcategory] = (save_dict[true_model_name]['efficacy']['subcategory'][subcategory] + save_dict[true_model_name]['stability']['subcategory'][subcategory])/2
     
     
     save_dir = os.path.join(save_path, 'robustness')
     os.makedirs(save_dir, exist_ok=True)
     json.dump(save_dict, open(os.path.join(save_dir, 'robustness.json'), 'w'), indent=4)
+    json.dump(model_dict, open(os.path.join(save_dir, 'robustness_extrainfo.json'), 'w'), indent=4)
 
 if __name__ == '__main__':
     args = parse_args()

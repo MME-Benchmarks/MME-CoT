@@ -27,12 +27,19 @@ def process_metrics(relevance_data: Dict[str, Any], reflection_data: Dict[str, A
     
     for model in relevance_data.keys():
         relevance_metrics = relevance_data[model]
+        # in case some models do not have reflection quality results
+        if model not in reflection_data:
+            print(f'[Warning] {model} does not have reflection quality results. We use a dummy reflection quality score with all 100%')
+            dummy_path = './final_score/dummy_reflection_quality.json'
+            with open(dummy_path, 'r', encoding='utf-8') as f:
+                dummy_data = json.load(f)
+            reflection_data[model] = dummy_data
         reflection_metrics = reflection_data[model]
         
         model_results = {
             "overall_metrics": {
-                "relevance": relevance_metrics["overall_metrics"]["average_relevance"],
-                "reflection": reflection_metrics["overall_metrics"]["average_score"],
+                "relevance_rate": relevance_metrics["overall_metrics"]["average_relevance_rate"],
+                "reflection_quality": reflection_metrics["overall_metrics"]["average_reflection_quality"],
                 "efficiency": None  # Will be calculated
             },
             "category": {},
@@ -41,16 +48,16 @@ def process_metrics(relevance_data: Dict[str, Any], reflection_data: Dict[str, A
         
         # Calculate overall efficiency
         model_results["overall_metrics"]["efficiency"] = calculate_efficiency(
-            model_results["overall_metrics"]["relevance"],
-            model_results["overall_metrics"]["reflection"]
+            model_results["overall_metrics"]["relevance_rate"],
+            model_results["overall_metrics"]["reflection_quality"]
         )
         
         # Process category metrics
         for category in relevance_metrics["category"]:
             if category in reflection_metrics["category"]:
                 model_results["category"][category] = {
-                    "relevance": relevance_metrics["category"][category],
-                    "reflection": reflection_metrics["category"][category],
+                    "relevance_rate": relevance_metrics["category"][category],
+                    "reflection_quality": reflection_metrics["category"][category],
                     "efficiency": calculate_efficiency(
                         relevance_metrics["category"][category],
                         reflection_metrics["category"][category]
@@ -61,8 +68,8 @@ def process_metrics(relevance_data: Dict[str, Any], reflection_data: Dict[str, A
         for subcategory in relevance_metrics["subcategory"]:
             if subcategory in reflection_metrics["subcategory"]:
                 model_results["subcategory"][subcategory] = {
-                    "relevance": relevance_metrics["subcategory"][subcategory],
-                    "reflection": reflection_metrics["subcategory"][subcategory],
+                    "relevance_rate": relevance_metrics["subcategory"][subcategory],
+                    "reflection_quality": reflection_metrics["subcategory"][subcategory],
                     "efficiency": calculate_efficiency(
                         relevance_metrics["subcategory"][subcategory],
                         reflection_metrics["subcategory"][subcategory]
@@ -88,16 +95,17 @@ def main():
     
     print("Calculating reflection metrics...")
     subprocess.run(['python', 'final_score/reflection_quality.py',
-                   '--cache_dir', os.path.join(args.cache_dir, 'reflection_quality'),
-                   '--save_path', args.save_path])
+                       '--cache_dir', os.path.join(args.cache_dir, 'reflection_quality'),
+                       '--save_path', args.save_path])
+
     
     # Read relevance results
-    relevance_file = os.path.join(args.save_path, 'relevance', 'relevance_results.json')
+    relevance_file = os.path.join(args.save_path, 'relevance_rate', 'relevance_rate_results.json')
     with open(relevance_file, 'r', encoding='utf-8') as f:
         relevance_data = json.load(f)
     
     # Read reflection results
-    reflection_file = os.path.join(args.save_path, 'reflection', 'reflection_results.json')
+    reflection_file = os.path.join(args.save_path, 'reflection_quality', 'reflection_quality_results.json')
     with open(reflection_file, 'r', encoding='utf-8') as f:
         reflection_data = json.load(f)
     

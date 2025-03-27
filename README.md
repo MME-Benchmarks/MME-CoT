@@ -103,7 +103,7 @@ pip install -r requirements.txt
      ```
      bash scripts/recall.sh
      ```
-     Simply change the `YOUR_MODEL_NAME` in the `recall.sh` file.
+     Simply change the `YOUR_MODEL_NAME` and the data path in the `recall.sh` file.
 
      Or you can run all the metrics for all the models in one directory with:
 
@@ -157,12 +157,12 @@ pip install -r requirements.txt
 1. The structure of the `scripts` directory:
    ```
     📂 scripts
-     ┣━━ 📜 recall.sh           # 评估召回率
-     ┣━━ 📜 precision.sh        # 评估精确度
-     ┣━━ 📜 reflection_quality.sh  # 评估反思质量
-     ┣━━ 📜 relevance_rate.sh   # 评估相关性比率
-     ┣━━ 📜 extract.sh          # 直接评估第一步（为了稳健性）：从模型回答中提取最终答案
-     ┗━━ 📜 judge.sh            # 直接评估第二步（为了稳健性）：判断提取答案的正确性
+     ┣━━ 📜 recall.sh           # evaluate recall
+     ┣━━ 📜 precision.sh        # evaluate precision
+     ┣━━ 📜 reflection_quality.sh  # evaluate reflection quality
+     ┣━━ 📜 relevance_rate.sh   # evaluate relevance rate
+     ┣━━ 📜 extract.sh          # First step of direct evaluation (for robustness): Extract final answers from model responses
+     ┗━━ 📜 judge.sh            # Second step of direct evaluation (for robustness): Judge the correctness of the extracted answers
    ```
 ## 🏆 Leaderboard
 

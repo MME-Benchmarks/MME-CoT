@@ -15,12 +15,9 @@ Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Rea
 [[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
 ## 💥 News
+- **[2025.03.29]** ⚙️ We have just integrated MME-CoT into [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/mme_cot). Thanks [Luodian](https://github.com/Luodian)!
 - **[2025.03.08]** ⚙️ We have just integrated MME-CoT into [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
-- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper]() and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
-
-## 📌 ToDo
-
-- Coming soon: MME-CoT evaluation with lmms-eval
+- **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper](https://arxiv.org/pdf/2502.09621) and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).
 
 ## 👀 About MME-CoT
 
@@ -58,7 +55,47 @@ Leveraging curated high-quality data and a unique evaluation strategy, we conduc
 </details>
 
 ## Inference
-We support running inference on MME-CoT with [VLMEvalkit](https://github.com/open-compass/VLMEvalKit). And then run the evaluation of each metric detailed in the [Eval](https://github.com/CaraJ7/MME-CoT#evaluation) section.
+
+### Inference with lmms-eval
+We support running inference on MME-CoT with [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval). And then run the evaluation of each metric detailed in the [Eval](https://github.com/CaraJ7/MME-CoT#evaluation) section.
+
+Please first install lmms-eval as demonstrated in its official GitHub repo [here](https://github.com/EvolvingLMMs-Lab/lmms-eval#installation).
+
+Then, run the inference with the CoT prompt (needed for: Precision, Recall, Stability, Efficacy, Reflection Quality, and Relevance Rate):
+```
+accelerate launch --num_processes=8 --main_process_port=12345 -m lmms_eval \
+    --model TESTED_MODEL \
+    --model_args=pretrained=TESTED_MODEL_NAME \
+    --tasks mme_cot_reason \
+    --batch_size 1 --log_samples --log_samples_suffix output_cot --output_path ./logs/
+```
+Run the inference with the Direct prompt (needed for: Stability and Efficacy):
+```
+accelerate launch --num_processes=8 --main_process_port=12345 -m lmms_eval \
+    --model TESTED_MODEL \
+    --model_args=pretrained=TESTED_MODEL_NAME \
+    --tasks mme_cot_direct \
+    --batch_size 1 --log_samples --log_samples_suffix output_dir --output_path ./logs/
+```
+
+Then, format the output json file to the evaluation output as illustrated [here](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/mme_cot):
+```
+cd tasks/mme_cot
+# For CoT prompt
+python tools/update_lmmseval_json.py \
+--lmms_eval_json_path mmecot_reasoning_test_for_submission.json \
+--save_path results/json/YOUR_MODEL_NAME_cot.json
+
+# For direct prompt
+python tools/update_lmmseval_json.py \
+--lmms_eval_json_path mmecot_direct_test_for_submission.json \
+--save_path results/json/YOUR_MODEL_NAME_dir.json
+```
+
+Finally, run the evaluation illustrated below.
+
+### Inference with VLMEvalKit
+We also support running inference on MME-CoT with [VLMEvalkit](https://github.com/open-compass/VLMEvalKit). And then run the evaluation of each metric detailed in the [Eval](https://github.com/CaraJ7/MME-CoT#evaluation) section.
 
 Please first install VLMEvalKit as demonstrated in its official GitHub repo [here](https://github.com/open-compass/VLMEvalKit/blob/main/docs/en/Quickstart.md).
 
@@ -86,18 +123,20 @@ Finally, run the evaluation illustrated below.
 
 
 ## Evaluation
+
 To calculate the six metrics (precision, recall, efficacy, stability, relevance rate, reflection quality), please follow the following steps:
 1. Install the required packages.
 ```bash
 pip install -r requirements.txt
 ```
-2. Format the model answer as the example shown in `results/xlsx` (the output from VLMEvalKit) or `results/json`.
+2. Format the model answer.
 
-     + The xlsx file format is identical to the output format of VLMEvalKit.
-     + The json file should be in a jsonl format, with each answer to a question in one line. All the other information of the question in the dataset should be preserved in the line.
+     + If you evaluate with lmms-eval, please follow the [instruction above](https://github.com/CaraJ7/MME-CoT#Inference-with-lmms-eval) to convert to valid json format.
+     + If you evaluate with VLMEvalKit, you can directly use the output xlsx.
+     + We also provide examples shown in `results/xlsx` (the output from VLMEvalKit) and `results/json`. The json file should be in a jsonl format, with each answer to a question in one line. All the other information of the question in the dataset should be preserved in the line.
 
      The suffix `_cot.json` denotes answering with the CoT prompt, and `_dir.json` denotes answering with the direct prompt.
-3. Run the evaluation script.
+4. Run the evaluation script.
 
      You can either run the metrics one by one. For example, to evaluate recall:
      ```
@@ -133,7 +172,7 @@ pip install -r requirements.txt
             ┗━━ 📂 YOUR_MODEL_NAME_cot
     ```
     Note that, if your model does not contain reflection process, you do not need to run `reflection_quality.sh`. The metric calculation script below will handle that automatically.
-4. Calculate the metrics.
+5. Calculate the metrics.
 
      We cache the evaluation results of all the questions in the cache dir. Here we read the results from the cache dir and calculate the metrics. 
 

@@ -15,6 +15,7 @@ Official repository for "[MME-CoT: Benchmarking Chain-of-Thought in LMMs for Rea
 [[🍓Project Page](https://mmecot.github.io/)] [[📖 Paper](https://arxiv.org/pdf/2502.09621)] [[📊 Huggingface Dataset](https://huggingface.co/datasets/CaraJ/MME-CoT)] [[🏆 Leaderboard](https://mmecot.github.io/#leaderboard)] [[👁️ Visualization](https://huggingface.co/datasets/CaraJ/MME-CoT/viewer)]
 
 ## 💥 News
+- **[2025.05.01]** 🎉 MME-CoT is accepted by ICML 2025.
 - **[2025.03.29]** ⚙️ We have just integrated MME-CoT into [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/mme_cot). Thanks [Luodian](https://github.com/Luodian)!
 - **[2025.03.08]** ⚙️ We have just integrated MME-CoT into [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
 - **[2025.02.14]** 🌟 We are very proud to launch MME-CoT, the first-ever comprehensive CoT evaluation benchmark of LMMs in Visual Reasoning! We release the [arxiv paper](https://arxiv.org/pdf/2502.09621) and all data samples in [huggingface dataset](https://huggingface.co/datasets/CaraJ/MME-CoT).

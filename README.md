@@ -1,4 +1,4 @@
-# MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency
+# [ICML 2025] MME-CoT 🔥🕵️: Benchmarking Chain-of-Thought in LMMs for Reasoning Quality, Robustness, and Efficiency
 
 ![Multimodal CoT](https://img.shields.io/badge/Task-Multimodal_CoT-red) 
 ![Visual Reasoning](https://img.shields.io/badge/Task-Visual_Reasoning-red) 

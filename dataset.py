@@ -5,6 +5,11 @@ import string
 from datasets import load_dataset
 from direct_eval import extract_answer_from_item
 from file_utils import read_results
+from string import Template
+
+class PromptTemplate(Template):
+    delimiter = '&&'  # use && instead of $
+
 
 def make_gt_dict(gt_dataset):
     gt_dict = dict()
@@ -66,21 +71,23 @@ def make_prompt(name, c, gt_inst, prompt):
 
 # make prompt for extract and judge, for robustness evaluation (direct eval)
 def make_dir_prompt(name, c, prompt):
-    # make ground truth information
     if name == 'extract':
-        prompt = prompt.replace("{", "{{").replace("}", "}}")
-        question = c['question'].replace("{", "{{").replace("}", "}}")
-        prediction = str(c['prediction']).replace("{", "{{").replace("}", "}}")
-        question = question.strip()
-
-        prompt = prompt.format(
+        template = PromptTemplate(prompt)
+        question = c['question'].strip()
+        prediction = str(c['prediction'])
+        
+        prompt = template.substitute(
             question=question, 
             response=prediction, 
         )
     elif name == 'judge': 
-        prompt = prompt.replace("{", "{{").replace("}", "}}")
-        question = c['question'].replace("{", "{{").replace("}", "}}")
-        prompt = prompt.format(question=question, extract_answer=c['extract_answer'], gt_answer=c['answer'])
+        template = PromptTemplate(prompt)
+        question = c['question']
+        prompt = template.substitute(
+            question=question, 
+            extract_answer=c['extract_answer'], 
+            gt_answer=c['answer']
+        )
         
     return prompt
 

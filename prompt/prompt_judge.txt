@@ -36,8 +36,8 @@ Question: Three of the following four slides are from the same presentation, but
 [Standard Answer]: A
 Your output: 0
 
-Question: {question}
-[Model Answer]: {extract_answer}
-[Standard Answer]: {gt_answer}
+Question: &&question
+[Model Answer]: &&extract_answer
+[Standard Answer]: &&gt_answer
 Your output:
 

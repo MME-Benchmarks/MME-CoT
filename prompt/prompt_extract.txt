@@ -95,6 +95,6 @@ Question: <image> <image> <image> <image> <image> <image> <image> <image> <image
 Response: the potential of this 3D generation paradigm to generate objects with PBR materials
 Your output: the potential of this 3D generation paradigm to generate objects with PBR materials
 
-Question: {question}
-Answer: {response}
+Question: &&question
+Answer: &&response
 Your output: 

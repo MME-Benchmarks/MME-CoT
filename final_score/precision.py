@@ -99,7 +99,7 @@ def analyze_precision(json_file_path):
             raise ValueError('Empty steps_data')
         
         # Calculate overall metrics
-        target_types = ['logical inference', 'image caption']
+        target_types = ['logical inference', 'image description']
         filtered_data = [item for item in steps_data if item['step_type'] in target_types]
         overall_precision, overall_ratio = calculate_precision(filtered_data)
         

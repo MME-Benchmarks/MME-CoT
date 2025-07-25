@@ -42,7 +42,7 @@ def process_metrics(precision_data: Dict[str, Any], recall_data: Dict[str, Any])
                     "f1": None  # Will be calculated
                 },
                 "image caption": {
-                    "precision": precision_metrics["type_metrics"]["image caption"]["average_precision"],
+                    "precision": precision_metrics["type_metrics"]["image description"]["average_precision"],
                     "recall": recall_metrics["type_metrics"]["image caption"]["average_recall"],
                     "f1": None  # Will be calculated
                 }

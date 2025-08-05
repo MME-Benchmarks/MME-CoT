@@ -51,7 +51,7 @@ for f in os.listdir(result_dir):
         os.system(command)
 
         # merge data
-        command = f"python tools/read_extract_cache.py --data_dir {cache_path} --save_path extract_json/{eval_f}"
+        command = f"python tools/read_extract_cache.py --cache_dir {cache_path} --save_path extract_json/{eval_f}"
         os.system(command)
 
         # judge
